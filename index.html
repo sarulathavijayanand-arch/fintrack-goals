@@ -1,0 +1,211 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FinTrackPro | Savings Goals</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header class="topbar">
+        <a href="#" class="logo"><span class="logo-icon">✦</span> FinTrack<span>Pro</span></a>
+        <nav>
+            <a href="#dashboard" class="active">Dashboard</a>
+            <a href="#goals">My Goals</a>
+            <a href="#analytics">Analytics</a>
+        </nav>
+        <div class="profile">
+            <span class="profile-icon">S</span>
+            <span>My Savings</span>
+        </div>
+    </header>
+
+    <main class="container" id="dashboard">
+
+        <section class="welcome">
+            <div class="welcome-content">
+                <p class="eyebrow">YOUR MONEY, YOUR FUTURE</p>
+                <h1>Dream it. Save it. <span>Achieve it.</span></h1>
+                <p class="subtitle">
+                    Small savings today, big achievements tomorrow.
+                </p>
+                <button class="primary-btn" id="addGoalBtn">
+                    ＋ Create New Goal
+                </button>
+            </div>
+        </section>
+
+        <section class="summary-section">
+            <div class="summary-heading">
+                <p class="eyebrow">YOUR FINANCIAL SNAPSHOT</p>
+                <h2>At a Glance</h2>
+            </div>
+
+            <div class="summary-grid">
+                <article class="summary-card purple-card">
+                    <div class="summary-top">
+                        <span>Total Saved</span>
+                        <span class="summary-icon">₹</span>
+                    </div>
+                    <h2 id="totalSaved">₹0</h2>
+                    <p>Across all your goals</p>
+                </article>
+
+                <article class="summary-card blue-card">
+                    <div class="summary-top">
+                        <span>Target Amount</span>
+                        <span class="summary-icon">◎</span>
+                    </div>
+                    <h2 id="totalTarget">₹0</h2>
+                    <p>Your total savings target</p>
+                </article>
+
+                <article class="summary-card pink-card">
+                    <div class="summary-top">
+                        <span>Goals Achieved</span>
+                        <span class="summary-icon">★</span>
+                    </div>
+                    <h2 id="completedGoals">0</h2>
+                    <p id="completedCaption">Keep going!</p>
+                </article>
+
+                <article class="summary-card green-card">
+                    <div class="summary-top">
+                        <span>Remaining Amount</span>
+                        <span class="summary-icon">↗</span>
+                    </div>
+                    <h2 id="remainingAmount">₹0</h2>
+                    <p>Amount left to reach targets</p>
+                </article>
+            </div>
+        </section>
+
+        <section class="section-block goals-section" id="goals">
+            <div class="section-heading">
+                <div>
+                    <p class="eyebrow">YOUR SAVINGS JOURNEY</p>
+                    <h2>Goal Progress</h2>
+                    <p class="section-description">
+                        Track each dream and celebrate every little win.
+                    </p>
+                </div>
+
+                <select id="goalFilter" class="filter-select" aria-label="Filter goals">
+                    <option value="all">All Goals</option>
+                    <option value="active">In Progress</option>
+                    <option value="completed">Completed</option>
+                </select>
+            </div>
+
+            <div id="goalsGrid" class="goals-grid"></div>
+        </section>
+
+        <section class="lower-grid" id="analytics">
+
+            <article class="panel graph-panel">
+                <div class="panel-heading">
+                    <div>
+                        <p class="eyebrow">VISUAL OVERVIEW</p>
+                        <h2>Goals Graph</h2>
+                    </div>
+                    <span class="chart-badge">Live Updates</span>
+                </div>
+
+                <div id="goalsChart" class="goals-chart"></div>
+
+                <div class="chart-legend">
+                    <span><i class="legend-dot saved-dot"></i> Amount saved</span>
+                    <span><i class="legend-dot target-dot"></i> Target amount</span>
+                </div>
+            </article>
+
+            <article class="panel quote-panel">
+                <div class="quote-decoration">“</div>
+                <p class="eyebrow">A LITTLE MOTIVATION</p>
+                <h2>Keep your dreams in motion.</h2>
+                <div class="quote-divider"></div>
+                <p id="quoteText" class="quote-text"></p>
+                <p id="quoteAuthor" class="quote-author"></p>
+                <button id="newQuoteBtn" class="quote-btn">✦ Inspire me</button>
+            </article>
+
+        </section>
+
+        <footer class="footer">
+            <p>✦ FinTrackPro — Every rupee brings you closer to your dreams.</p>
+        </footer>
+    </main>
+
+    <!-- Create / Edit Goal Modal -->
+    <div class="modal" id="goalModal" aria-hidden="true">
+        <div class="modal-card">
+            <button class="close-btn" data-close="goalModal" aria-label="Close">&times;</button>
+
+            <p class="eyebrow">PLAN YOUR FUTURE</p>
+            <h2 id="goalModalTitle">Create a New Goal</h2>
+            <p class="modal-description">Give your next dream a name and a target.</p>
+
+            <form id="goalForm">
+                <label for="goalName">Goal Name</label>
+                <input type="text" id="goalName" placeholder="e.g. Buy a laptop" required maxlength="45">
+
+                <label for="goalTarget">Target Amount (₹)</label>
+                <input type="number" id="goalTarget" placeholder="e.g. 50000" min="1" step="0.01" required>
+
+                <label for="goalInitial">Already Saved (₹)</label>
+                <input type="number" id="goalInitial" placeholder="e.g. 5000" min="0" step="0.01" value="0" required>
+
+                <label for="goalCategory">Category</label>
+                <select id="goalCategory" required>
+                    <option value="Travel">✈ Travel</option>
+                    <option value="Education">📚 Education</option>
+                    <option value="Technology">💻 Technology</option>
+                    <option value="Emergency">🛡 Emergency Fund</option>
+                    <option value="Personal">💖 Personal</option>
+                    <option value="Other">🎯 Other</option>
+                </select>
+
+                <div class="form-actions">
+                    <button type="button" class="secondary-btn" data-close="goalModal">Cancel</button>
+                    <button type="submit" class="primary-btn" id="saveGoalBtn">Create Goal</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Add / Withdraw Money Modal -->
+    <div class="modal" id="moneyModal" aria-hidden="true">
+        <div class="modal-card money-modal-card">
+            <button class="close-btn" data-close="moneyModal" aria-label="Close">&times;</button>
+
+            <p class="eyebrow">MANAGE YOUR SAVINGS</p>
+            <h2 id="moneyModalTitle">Add Money</h2>
+            <p id="moneyGoalName" class="money-goal-name"></p>
+
+            <div class="money-balance">
+                <span>Currently saved</span>
+                <strong id="moneyCurrentAmount">₹0</strong>
+            </div>
+
+            <div class="money-toggle">
+                <button type="button" id="depositTab" class="money-tab active">＋ Add Money</button>
+                <button type="button" id="withdrawTab" class="money-tab">− Withdraw</button>
+            </div>
+
+            <form id="moneyForm">
+                <label for="moneyAmount">Amount (₹)</label>
+                <input type="number" id="moneyAmount" placeholder="Enter amount" min="0.01" step="0.01" required>
+                <p id="moneyHelp" class="field-help">Add money to increase your savings progress.</p>
+                <p id="moneyError" class="error-message"></p>
+                <button type="submit" class="primary-btn full-btn" id="moneySubmitBtn">Add Money</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="toast" class="toast" role="status"></div>
+
+    <script src="goals.js"></script>
+</body>
+</html>
